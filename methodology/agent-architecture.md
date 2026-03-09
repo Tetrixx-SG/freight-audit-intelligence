@@ -1,120 +1,98 @@
-# Freya Agent Architecture — Connected Brains Framework
+# Freya Agent Architecture
 
-## Why Multi-Agent Architecture Matters for Freight Intelligence
+## The Core Principle
 
-Freight audit is not a single problem. It is a collection of distinct 
-reasoning tasks that must operate in parallel, at scale, across 
-heterogeneous data:
+Freight intelligence is not a single problem. It is a set of distinct 
+reasoning tasks — invoice normalization, contract verification, anomaly 
+detection, exception resolution, spend synthesis — that must operate 
+continuously, at scale, across heterogeneous carrier data.
 
-- Format normalization (different for every carrier)
-- Contract matching (different for every modality)
-- Anomaly detection (requires statistical and pattern reasoning)
-- Exception triage (requires classification and routing logic)
-- Exception resolution (requires carrier context and negotiation logic)
-- Intelligence delivery (requires synthesis and summarization)
+Freya is built around a coordinated agent architecture designed for 
+exactly this complexity. Each task domain has a specialized intelligence 
+layer. Those layers operate in coordination, not in sequence.
 
-A single model or rules engine cannot handle this well. A coordinated 
-system of specialized agents can.
-
-This is the architectural principle behind Freya — what we call the 
-Connected Brains framework.
+This is what makes Freya fundamentally different from rules-based FAP 
+platforms — not a single engine processing invoices, but a continuously 
+operating intelligence system reasoning about spend.
 
 ---
 
-## The Connected Brains Framework
+## What This Means in Practice
 
-Freya operates across four intelligence pillars that work in 
-coordination:
+**Continuous, not batch**
+Freya operates in real time. Invoices are verified as they arrive. 
+Exceptions are identified before payment cycles close. Intelligence 
+is current, not periodic.
 
-### Pillar 1 — Directives
-Strategic rules and audit policies that govern how Freya operates.
+**Specialized, not generic**
+Different verification tasks require different reasoning approaches. 
+Freya's architecture reflects this — purpose-built intelligence for 
+each task domain, coordinated into a unified workflow.
 
-- Client-specific audit policies (which error types to prioritize, 
-  which carriers to scrutinize more closely, dispute thresholds)
-- Modality-specific verification standards
-- Exception escalation rules (what gets resolved autonomously vs. 
-  escalated to human review)
-- Payment approval policies
+**Autonomous, not dependent**
+The majority of exceptions are resolved without human intervention. 
+Human review is reserved for cases that genuinely require judgment — 
+with full context already assembled by the time they arrive.
 
-Directives are the governance layer — they ensure Freya operates 
-within the boundaries the client defines.
-
-### Pillar 2 — Role Context
-Domain knowledge about carriers, contracts, and modality specifics.
-
-- Active carrier contracts with rate schedules and accessorial terms
-- Carrier behavioral profiles (known billing tendencies, dispute 
-  history, response patterns)
-- Modality-specific knowledge (ocean surcharge structures, air weight 
-  break conventions, parcel zone definitions)
-- Market rate benchmarks for lane and modality benchmarking
-
-Role Context is what makes Freya's verification intelligent rather 
-than mechanical — it knows what correct looks like for each carrier 
-and modality.
-
-### Pillar 3 — Current State
-Live operational data — invoices, discrepancies, resolution queues.
-
-- Invoice ingestion queue (invoices awaiting verification)
-- Active discrepancy register (identified errors pending resolution)
-- Dispute tracker (open disputes with carriers, status, and aging)
-- Payment approval queue (verified invoices awaiting payment)
-- Exception escalation queue (items requiring human judgment)
-
-Current State is the operational heartbeat — the live data layer 
-that agents act on continuously.
-
-### Pillar 4 — Deep Knowledge
-Historical patterns, carrier benchmarks, market rate intelligence.
-
-- Invoice history and verified charge baselines by carrier and lane
-- Anomaly detection models trained on client-specific billing patterns
-- Carrier dispute outcome history (what arguments win, with which 
-  carriers, on which charge types)
-- Market rate intelligence for benchmarking contracted rates against 
-  actuals
-
-Deep Knowledge is what makes Freya improve over time — every verified 
-invoice, every resolved exception, and every carrier interaction 
-enriches the models.
+**Learning, not static**
+Every verified invoice, every resolved exception, and every carrier 
+interaction makes Freya more accurate over time. There are no manual 
+rule updates. Improvement is continuous by design.
 
 ---
 
-## Agent Specialization
+## Intelligence Pillars
 
-Within the Connected Brains framework, Freya deploys specialized 
-agents for each task domain:
+Freya's architecture is organized around four intelligence pillars 
+that work in coordination:
 
-| Agent Type | Function |
-|-----------|----------|
-| **Ingestion Agent** | Invoice format normalization across all carrier types |
-| **Verification Agent** | Contract matching and discrepancy identification |
-| **Anomaly Agent** | Statistical and pattern-based anomaly detection |
-| **Triage Agent** | Exception classification and routing |
-| **Resolution Agent** | Autonomous exception resolution for low-complexity cases |
-| **Intelligence Agent** | Spend analytics synthesis and insight delivery |
-| **Communication Agent** | Carrier dispute communication and follow-up |
+**Directives** — the governance layer. Audit policies, escalation 
+rules, and client-specific parameters that define how Freya operates.
 
-Each agent is specialized for its task and operates on the relevant 
-subset of the Connected Brains data layer.
+**Role Context** — the domain knowledge layer. Carrier contracts, 
+modality-specific expertise, and market benchmarks that make 
+verification intelligent rather than mechanical.
 
----
+**Current State** — the operational layer. Live invoice queues, 
+active exceptions, dispute status, and payment approvals.
 
-## Orchestration
-
-Agent coordination is managed by an orchestration layer that:
-
-- Routes invoices through the verification pipeline in the correct 
-  sequence
-- Manages agent handoffs when a task requires multiple agent types
-- Tracks state across multi-step resolution workflows
-- Escalates to human review when agent confidence falls below threshold
-- Logs all agent decisions with reasoning for audit trail purposes
+**Deep Knowledge** — the learning layer. Historical patterns, 
+carrier behavioral models, and anomaly baselines that improve 
+accuracy continuously.
 
 ---
 
 ## Model Agnosticism
 
-Freya's agent architecture is designed to be model-agnostic. The 
-orchestration layer and agent interfaces are decoupled fr
+Freya is designed to be independent of any single LLM provider. 
+The intelligence layer is decoupled from the underlying model — 
+enabling deployment across enterprise AI infrastructure including 
+GCP Vertex AI, AWS Bedrock, and Azure OpenAI, and the flexibility 
+to adopt new models as the market evolves.
+
+---
+
+## MCP Integration
+
+Freya exposes its intelligence capabilities via Model Context 
+Protocol (MCP) endpoints — making Freya's data and workflows 
+natively callable by enterprise AI agent ecosystems.
+
+This means a client's enterprise AI assistant can query Freya 
+directly for spend data, exception status, and audit results — 
+without custom integration work.
+
+See [MCP Server Documentation](../integrations/mcp-server.md) 
+for endpoint details.
+
+---
+
+## Related Resources
+
+- [Audit Accuracy Methodology](./audit-accuracy.md)
+- [AI-Native vs Legacy Architecture](../competitive-landscape/ai-native-vs-legacy.md)
+- [MCP Server Documentation](../integrations/mcp-server.md)
+
+---
+
+*TetriXX Pte. Ltd. · tetrixx.io · hello@tetrixx.io*
